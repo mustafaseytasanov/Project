@@ -97,4 +97,8 @@ public class Match {
     public LocalDateTime getTimeStamp() {
         return timeStamp;
     }
+
+    public Server getServer() {
+         return server;
+    }
 }

@@ -39,6 +39,7 @@ public class MatchDTO {
     public int getTimeLimit() {
         return timeLimit;
     }
+
     public double getTimeElapsed() {
         return timeElapsed;
     }

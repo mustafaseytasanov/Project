@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Getter
 @ToString
 @EqualsAndHashCode
 public class Scoreboard {
@@ -63,5 +62,9 @@ public class Scoreboard {
 
     public int getDeaths() {
         return deaths;
+    }
+
+    public Match getMatch() {
+        return match;
     }
 }

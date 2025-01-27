@@ -45,5 +45,9 @@ public class Server {
         this.gameModes = gameModes;
     }
 
+    public String getEndpoint() {
+        return endpoint;
+    }
+
     public Server() {}
 }
