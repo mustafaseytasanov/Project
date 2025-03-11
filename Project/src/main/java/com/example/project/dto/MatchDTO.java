@@ -6,6 +6,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Setter
+@Getter
 @ToString
 public class MatchDTO {
     private String map;
@@ -22,30 +23,6 @@ public class MatchDTO {
         this.timeLimit = timeLimit;
         this.timeElapsed = timeElapsed;
         this.scoreboard = scoreboard;
-    }
-
-    public String getMap() {
-        return map;
-    }
-
-    public String getGameMode() {
-        return gameMode;
-    }
-
-    public int getFragLimit() {
-        return fragLimit;
-    }
-
-    public int getTimeLimit() {
-        return timeLimit;
-    }
-
-    public double getTimeElapsed() {
-        return timeElapsed;
-    }
-
-    public List<ScoreboardDTO> getScoreboard() {
-        return scoreboard;
     }
 
 }

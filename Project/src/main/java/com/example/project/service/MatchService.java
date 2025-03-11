@@ -1,6 +1,8 @@
 package com.example.project.service;
 
 import com.example.project.dto.MatchDTO;
+import com.example.project.dto.ReportDTO;
+import com.example.project.dto.ScoreboardDTO;
 import com.example.project.exception.ServerNotFoundException;
 import com.example.project.model.Match;
 import com.example.project.model.Scoreboard;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -60,6 +63,33 @@ public class MatchService {
     public Match getMatch(String endpoint, String timeStamp) {
         return matchRepository.findByServerEndpointAndTimeStamp(endpoint, parse(timeStamp));
     }
+
+
+    public List<ReportDTO> getRecentMatches(int recentMatchesCount) {
+        List<Match> allMatchesDesc = matchRepository.findAllDesc();
+        List<Match> recentMatches;
+        if (recentMatchesCount >= allMatchesDesc.size()) {
+            recentMatches = allMatchesDesc;
+        } else {
+            recentMatches = allMatchesDesc.subList(0, recentMatchesCount);
+        }
+
+        List<ReportDTO> reportDTOs = new ArrayList<>();
+        for (Match match : recentMatches) {
+            MatchDTO results = new MatchDTO(match.getMap(),
+                    match.getGameMode(), match.getFragLimit(),
+                    match.getTimeLimit(), match.getTimeElapsed(),
+                    match.getScoreboardList().stream()
+                            .map(scoreboard -> new ScoreboardDTO(scoreboard.getPlayerName(),
+                                    scoreboard.getFrags(), scoreboard.getKills(), scoreboard.getDeaths()))
+                            .toList());
+            reportDTOs.add(new ReportDTO(match.getServer().getEndpoint(),
+                    match.getTimeStamp().toString() + "Z", results));
+        }
+
+        return reportDTOs;
+    }
+
 
     private LocalDateTime parse(String timestamp) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
