@@ -1,6 +1,7 @@
 package com.example.project.service;
 
 
+import com.example.project.dto.BestPlayerDTO;
 import com.example.project.dto.PlayerStatsDTO;
 import com.example.project.model.Scoreboard;
 import com.example.project.repository.ScoreboardRepository;
@@ -119,5 +120,45 @@ public class PlayerService {
                 averageMatchesPerDay,
                 lastMatchPlayed,
                 killToDeathRatio);
+    }
+
+    public List<BestPlayerDTO> getBestPlayers(int bestPlayersCount) {
+        List<Scoreboard> scoreboardList = (List<Scoreboard>) scoreboardRepository.findAll();
+        Map<String, int[]> playerKillsAndDeathsMap = new HashMap<>();
+        int[] killsAndDeathsArray;
+        for (Scoreboard scoreboard : scoreboardList) {
+            String playerName = scoreboard.getPlayerName();
+            if (!playerKillsAndDeathsMap.containsKey(playerName)) {
+                killsAndDeathsArray = new int[3];
+                killsAndDeathsArray[0] = 1;
+                killsAndDeathsArray[1] = scoreboard.getKills();
+                killsAndDeathsArray[2] = scoreboard.getDeaths();
+                playerKillsAndDeathsMap.put(playerName, killsAndDeathsArray);
+            } else {
+                killsAndDeathsArray = playerKillsAndDeathsMap.get(playerName);
+                killsAndDeathsArray[0] += 1;
+                killsAndDeathsArray[1] += scoreboard.getKills();
+                killsAndDeathsArray[2] += scoreboard.getDeaths();
+                playerKillsAndDeathsMap.put(playerName, killsAndDeathsArray);
+            }
+        }
+        List<BestPlayerDTO> bestPlayers = new ArrayList<>();
+        for (String name : playerKillsAndDeathsMap.keySet()) {
+            int[] pairKillsDeath = playerKillsAndDeathsMap.get(name);
+            if ((pairKillsDeath[0] < 10) || (pairKillsDeath[2] == 0)) {
+                continue;
+            }
+            double killToDeathRatio = (double) pairKillsDeath[1] / (double) pairKillsDeath[2];
+            bestPlayers.add(new BestPlayerDTO(name, killToDeathRatio));
+            if (--bestPlayersCount == 0) {
+                break;
+            }
+        }
+        bestPlayers.sort((o1, o2) -> {
+            double value1 = o1.getKillToDeathRatio();
+            double value2 = o2.getKillToDeathRatio();
+            return Double.compare(value2, value1);
+        });
+        return bestPlayers;
     }
 }
