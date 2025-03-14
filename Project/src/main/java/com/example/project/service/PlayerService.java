@@ -150,15 +150,16 @@ public class PlayerService {
             }
             double killToDeathRatio = (double) pairKillsDeath[1] / (double) pairKillsDeath[2];
             bestPlayers.add(new BestPlayerDTO(name, killToDeathRatio));
-            if (--bestPlayersCount == 0) {
-                break;
-            }
         }
         bestPlayers.sort((o1, o2) -> {
             double value1 = o1.getKillToDeathRatio();
             double value2 = o2.getKillToDeathRatio();
             return Double.compare(value2, value1);
         });
+
+        if (bestPlayersCount < bestPlayers.size()) {
+            bestPlayers = bestPlayers.subList(0, bestPlayersCount);
+        }
         return bestPlayers;
     }
 }

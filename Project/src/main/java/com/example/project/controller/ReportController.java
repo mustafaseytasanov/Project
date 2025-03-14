@@ -1,9 +1,11 @@
 package com.example.project.controller;
 
 import com.example.project.dto.BestPlayerDTO;
+import com.example.project.dto.PopularServerDTO;
 import com.example.project.dto.ReportDTO;
 import com.example.project.service.MatchService;
 import com.example.project.service.PlayerService;
+import com.example.project.service.ServerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ public class ReportController {
 
     private final MatchService matchService;
     private final PlayerService playerService;
+    private final ServerService serverService;
 
     @GetMapping("/recent-matches/{count}")
     public ResponseEntity<List<ReportDTO>> getRecentMatches(@PathVariable(required = false) Optional<Integer> count) {
@@ -39,6 +42,16 @@ public class ReportController {
             return ResponseEntity.ok(Collections.emptyList());
         }
         return ResponseEntity.ok(playerService.getBestPlayers(bestPlayersCount));
+    }
+
+    @GetMapping("/popular-servers/{count}")
+    public ResponseEntity<List<PopularServerDTO>> getPopularServers(
+            @PathVariable(required = false) Optional<Integer> count) {
+        int popularServersCount = getIntegerValue(count);
+        if (popularServersCount <= 0) {
+            return ResponseEntity.ok(Collections.emptyList());
+        }
+        return ResponseEntity.ok(serverService.getPopularServers(popularServersCount));
     }
 
     private int getIntegerValue(Optional<Integer> count) {

@@ -11,6 +11,8 @@ import java.util.List;
 @Table(name = "servers")
 @AllArgsConstructor
 @EqualsAndHashCode
+@Getter
+@Setter
 public class Server {
 
     @Id

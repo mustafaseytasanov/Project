@@ -1,11 +1,13 @@
 package com.example.project.service;
 
+import com.example.project.dto.PopularServerDTO;
 import com.example.project.dto.ServerDTO;
 import com.example.project.dto.StatsDTO;
 import com.example.project.model.Match;
 import com.example.project.model.Server;
 import com.example.project.repository.MatchRepository;
 import com.example.project.repository.ServerRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +15,10 @@ import java.time.LocalDate;
 import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class ServerService {
     private final ServerRepository serverRepository;
     private final MatchRepository matchRepository;
-
-    @Autowired
-    public ServerService(ServerRepository serverRepository, MatchRepository matchRepository) {
-        this.serverRepository = serverRepository;
-        this.matchRepository = matchRepository;
-    }
 
     public void saveOrUpdateInfo(String endpoint,
                                  ServerDTO serverDTO) {
@@ -50,16 +47,7 @@ public class ServerService {
         List<Match> matchList = matchRepository.findAllByServerEndpoint(endpoint);
         long totalMatchesPlayed = matchList.size();
 
-        Map<LocalDate, Long> matchesPerDay = new HashMap<>();
-        for (Match match : matchList) {
-            LocalDate localDate = match.getTimeStamp().toLocalDate();
-            if (!matchesPerDay.containsKey(localDate)) {
-                matchesPerDay.put(localDate, 1L);
-            } else {
-                matchesPerDay.put(localDate, matchesPerDay.get(localDate) + 1);
-            }
-        }
-
+        Map<LocalDate, Long> matchesPerDay = getMatchesPerDayMap(matchList);
         long maximumMatchesPerDay = matchesPerDay.values().stream().max(Long::compareTo).orElse(0L);
         double averageMatchesPerDay = matchesPerDay.values().stream().mapToLong(Long::longValue).average().orElse(0D);
 
@@ -103,6 +91,19 @@ public class ServerService {
         );
     }
 
+    private Map<LocalDate, Long> getMatchesPerDayMap(List<Match> matchList) {
+        Map<LocalDate, Long> matchesPerDay = new HashMap<>();
+        for (Match match : matchList) {
+            LocalDate localDate = match.getTimeStamp().toLocalDate();
+            if (!matchesPerDay.containsKey(localDate)) {
+                matchesPerDay.put(localDate, 1L);
+            } else {
+                matchesPerDay.put(localDate, matchesPerDay.get(localDate) + 1);
+            }
+        }
+        return matchesPerDay;
+    }
+
     private List<String> getTop5Values(Map<String, Long> inputMap) {
         List<String> resultList = new ArrayList<>();
         long maxValue;
@@ -116,5 +117,27 @@ public class ServerService {
             }
         }
         return resultList;
+    }
+
+    public List<PopularServerDTO> getPopularServers(int popularServersCount) {
+        List<Server> serverList = (List<Server>) serverRepository.findAll();
+        Set<Server> serverSet = new HashSet<>(serverList);
+        List<PopularServerDTO> popularServerDTOs = new ArrayList<>();
+        for (Server server : serverSet) {
+            List<Match> matchList = matchRepository.findAllByServerEndpoint(server.getEndpoint());
+            Map<LocalDate, Long> matchesPerDay = getMatchesPerDayMap(matchList);
+            double averageMatchesPerDay = matchesPerDay.values().stream().mapToLong(Long::longValue).average().orElse(0D);
+            popularServerDTOs.add(new PopularServerDTO(server.getEndpoint(),
+                    server.getName(), averageMatchesPerDay));
+        }
+        popularServerDTOs.sort((o1, o2) -> {
+            double value1 = o1.getAverageMatchesPerDay();
+            double value2 = o2.getAverageMatchesPerDay();
+            return Double.compare(value2, value1);
+        });
+        if (popularServersCount < popularServerDTOs.size()) {
+            popularServerDTOs = popularServerDTOs.subList(0, popularServersCount);
+        }
+        return popularServerDTOs;
     }
 }
