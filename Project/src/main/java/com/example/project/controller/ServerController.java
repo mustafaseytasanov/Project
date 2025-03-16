@@ -1,15 +1,13 @@
 package com.example.project.controller;
 
-import com.example.project.dto.MatchDTO;
-import com.example.project.dto.ScoreboardDTO;
-import com.example.project.dto.ServerDTO;
-import com.example.project.dto.StatsDTO;
+import com.example.project.dto.*;
 import com.example.project.model.Match;
 import com.example.project.model.Server;
 import com.example.project.repository.ServerRepository;
 import com.example.project.service.MatchService;
 import com.example.project.service.ServerService;
 import com.example.project.exception.ServerNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +17,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/servers")
+@AllArgsConstructor
 public class ServerController {
 
     private final ServerService serverService;
     private final MatchService matchService;
-
-    @Autowired
-    public ServerController(ServerService serverService, MatchService matchService, ServerRepository serverRepository) {
-        this.serverService = serverService;
-        this.matchService = matchService;
-    }
 
     @PutMapping("/{endpoint}/info")
     public ResponseEntity<Void> putInfo(@PathVariable String endpoint,
@@ -52,18 +45,17 @@ public class ServerController {
     }
 
     @GetMapping("/{endpoint}/info")
-    public ResponseEntity<Server> getInfo(@PathVariable String endpoint) {
-        Server server = serverService.getServer(endpoint);
-        if (server != null) {
-            return ResponseEntity.ok(server);
-        } else {
-            return ResponseEntity.notFound().build();
+    public ResponseEntity<InfoDTO> getOneServerInfo(@PathVariable String endpoint) {
+        InfoDTO serverInfo = serverService.getOneServerInfo(endpoint);
+        if (serverInfo != null) {
+            return ResponseEntity.ok(serverInfo);
         }
+        return ResponseEntity.notFound().build();
     }
 
     @GetMapping("/info")
-    public ResponseEntity<List<Server>> getInfo() {
-        return ResponseEntity.ok(serverService.getAllServers());
+    public ResponseEntity<List<ServerDTO>> getAllServersInfo() {
+        return ResponseEntity.ok(serverService.getAllServersInfo());
     }
 
     @GetMapping("/{endpoint}/matches/{timestamp}")

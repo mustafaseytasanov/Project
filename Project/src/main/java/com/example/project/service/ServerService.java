@@ -1,5 +1,6 @@
 package com.example.project.service;
 
+import com.example.project.dto.InfoDTO;
 import com.example.project.dto.PopularServerDTO;
 import com.example.project.dto.ServerDTO;
 import com.example.project.dto.StatsDTO;
@@ -20,22 +21,32 @@ public class ServerService {
     private final ServerRepository serverRepository;
     private final MatchRepository matchRepository;
 
+
     public void saveOrUpdateInfo(String endpoint,
                                  ServerDTO serverDTO) {
         Server server = serverRepository.findByEndpoint(endpoint)
                 .orElse(new Server(endpoint));
-        server.setName(serverDTO.getName());
-        server.setGameModes(serverDTO.getGameModes());
+        server.setName(serverDTO.getInfo().getName());
+        server.setGameModes(serverDTO.getInfo().getGameModes());
         serverRepository.save(server);
     }
 
-    public Server getServer(String endpoint) {
+    public InfoDTO getOneServerInfo(String endpoint) {
         Optional<Server> server = serverRepository.findByEndpoint(endpoint);
-        return server.orElse(null);
+        return server.map(value -> new InfoDTO(value.getName(), value.getGameModes())).orElse(null);
     }
 
-    public List<Server> getAllServers() {
-        return (List<Server>) serverRepository.findAll();
+    public List<ServerDTO> getAllServersInfo() {
+        List<Server> serverList = (List<Server>) serverRepository.findAll();
+        List<ServerDTO> serverDTOList = new ArrayList<>();
+        for (Server server : serverList) {
+            ServerDTO serverDTO = new ServerDTO();
+            serverDTO.setEndpoint(server.getEndpoint());
+            InfoDTO infoDTO = new InfoDTO(server.getName(), server.getGameModes());
+            serverDTO.setInfo(infoDTO);
+            serverDTOList.add(serverDTO);
+        }
+        return serverDTOList;
     }
 
     public boolean IsExistsServer(String endpoint) {

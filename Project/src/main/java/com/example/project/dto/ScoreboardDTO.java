@@ -2,6 +2,7 @@ package com.example.project.dto;
 
 import lombok.*;
 
+@Getter
 @NoArgsConstructor
 @Setter
 @ToString
@@ -18,19 +19,4 @@ public class ScoreboardDTO {
         this.deaths = deaths;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public int getFrags() {
-        return frags;
-    }
-
-    public int getKills() {
-        return kills;
-    }
-
-    public int getDeaths() {
-        return deaths;
-    }
 }

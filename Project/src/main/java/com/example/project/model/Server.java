@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Table(name = "servers")
 @AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode
 @Getter
 @Setter
@@ -30,22 +31,4 @@ public class Server {
     public Server(String endpoint) {
         this.endpoint = endpoint;
     }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<String> getGameModes() {
-        return gameModes;
-    }
-
-    public void setGameModes(List<String> gameModes) {
-        this.gameModes = gameModes;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-
-    public Server() {}
 }
