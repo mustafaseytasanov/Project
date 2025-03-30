@@ -81,7 +81,7 @@ public class PlayerService {
             }
             totalScoreboards += (double) playersBelowCurrent / (scoreboardList.size() - 1) * 100.0;
         }
-        double averageScoreboardPercent = totalScoreboards / playerScoreboards.size();
+        double averageScoreboardPercent = totalScoreboards / playerScoreboards.size() * 100;
 
         Map<LocalDate, Long> matchesPerDay = new HashMap<>();
         for (Scoreboard scoreboard: playerScoreboards) {

@@ -44,6 +44,13 @@ public class MatchService {
         match.setTimeLimit(matchDTO.getTimeLimit());
         match.setTimeElapsed(matchDTO.getTimeElapsed());
 
+        String gameMode = matchDTO.getGameMode();
+        List<String> gameModes = server.getGameModes();
+        if (!gameModes.contains(gameMode)) {
+            gameModes.add(gameMode);
+            server.setGameModes(gameModes);
+        }
+        serverRepository.save(server);
         List<Scoreboard> scoreboards = matchDTO.getScoreboard().stream()
                 .map(scoreboardDTO -> {
                     Scoreboard scoreboard = new Scoreboard();

@@ -5,6 +5,7 @@ import lombok.*;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
 @ToString
@@ -15,14 +16,4 @@ public class MatchDTO {
     private int timeLimit;
     private double timeElapsed;
     private List<ScoreboardDTO> scoreboard;
-
-    public MatchDTO(String map, String gameMode, int fragLimit, int timeLimit, double timeElapsed, List<ScoreboardDTO> scoreboard) {
-        this.map = map;
-        this.gameMode = gameMode;
-        this.fragLimit = fragLimit;
-        this.timeLimit = timeLimit;
-        this.timeElapsed = timeElapsed;
-        this.scoreboard = scoreboard;
-    }
-
 }

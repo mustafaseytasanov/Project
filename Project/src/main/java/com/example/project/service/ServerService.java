@@ -23,11 +23,11 @@ public class ServerService {
 
 
     public void saveOrUpdateInfo(String endpoint,
-                                 ServerDTO serverDTO) {
+                                 InfoDTO infoDTO) {
         Server server = serverRepository.findByEndpoint(endpoint)
                 .orElse(new Server(endpoint));
-        server.setName(serverDTO.getInfo().getName());
-        server.setGameModes(serverDTO.getInfo().getGameModes());
+        server.setName(infoDTO.getName());
+        server.setGameModes(infoDTO.getGameModes());
         serverRepository.save(server);
     }
 
@@ -49,7 +49,7 @@ public class ServerService {
         return serverDTOList;
     }
 
-    public boolean IsExistsServer(String endpoint) {
+    public boolean isExistsServer(String endpoint) {
         return serverRepository.findByEndpoint(endpoint).isEmpty();
     }
 

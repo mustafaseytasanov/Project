@@ -25,8 +25,8 @@ public class ServerController {
 
     @PutMapping("/{endpoint}/info")
     public ResponseEntity<Void> putInfo(@PathVariable String endpoint,
-                                     @RequestBody ServerDTO serverDTO) { // DTO
-        serverService.saveOrUpdateInfo(endpoint, serverDTO);
+                                     @RequestBody InfoDTO infoDTO) { // DTO
+        serverService.saveOrUpdateInfo(endpoint, infoDTO);
         return ResponseEntity.ok().build();
 
     }
@@ -63,7 +63,7 @@ public class ServerController {
             @PathVariable String endpoint,
             @PathVariable String timestamp) {
 
-        if (serverService.IsExistsServer(endpoint)) {
+        if (serverService.isExistsServer(endpoint)) {
             return ResponseEntity.notFound().build();
         }
 
@@ -93,7 +93,7 @@ public class ServerController {
 
     @GetMapping("/{endpoint}/stats")
     public ResponseEntity<StatsDTO> getStats(@PathVariable String endpoint) {
-        if (serverService.IsExistsServer(endpoint)) {
+        if (serverService.isExistsServer(endpoint)) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(serverService.getStats(endpoint));
