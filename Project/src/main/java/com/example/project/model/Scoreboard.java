@@ -3,6 +3,11 @@ package com.example.project.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+/**
+ * Entity class that represents table "scoreboards" in database.
+ * @author Mustafa
+ * @version 1.0
+ */
 @Entity
 @Table(name = "scoreboards")
 @AllArgsConstructor

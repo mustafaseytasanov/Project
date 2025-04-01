@@ -4,6 +4,11 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Class MatchDTO
+ * @author Mustafa
+ * @version 1.0
+ */
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter

@@ -7,6 +7,11 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity class that represents table "servers" in database.
+ * @author Mustafa
+ * @version 1.0
+ */
 @Entity
 @Table(name = "servers")
 @AllArgsConstructor

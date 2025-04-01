@@ -5,6 +5,11 @@ import lombok.*;
 
 import java.util.List;
 
+/**
+ * Class ServerDTO
+ * @author Mustafa
+ * @version 1.0
+ */
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

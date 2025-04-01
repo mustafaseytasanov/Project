@@ -6,6 +6,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+
+/**
+ * Interface ServerRepository
+ * @author Mustafa
+ * @version 1.0
+ */
 @Repository
 public interface ServerRepository extends CrudRepository<Server, String> {
 

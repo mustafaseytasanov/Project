@@ -3,9 +3,9 @@ package com.example.project.controller;
 import com.example.project.dto.BestPlayerDTO;
 import com.example.project.dto.PopularServerDTO;
 import com.example.project.dto.ReportDTO;
-import com.example.project.service.MatchService;
-import com.example.project.service.PlayerService;
-import com.example.project.service.ServerService;
+import com.example.project.service.impl.MatchServiceImpl;
+import com.example.project.service.impl.PlayerServiceImpl;
+import com.example.project.service.impl.ServerServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,14 +17,20 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * Class for handling requests where path is "/reports/...".
+ * @author Mustafa
+ * @version 1.0
+ */
 @Controller
 @AllArgsConstructor
 @RequestMapping("/reports")
 public class ReportController {
 
-    private final MatchService matchService;
-    private final PlayerService playerService;
-    private final ServerService serverService;
+    private final MatchServiceImpl matchService;
+    private final PlayerServiceImpl playerService;
+    private final ServerServiceImpl serverService;
 
     @GetMapping("/recent-matches/{count}")
     public ResponseEntity<List<ReportDTO>> getRecentMatches(@PathVariable(required = false) Optional<Integer> count) {

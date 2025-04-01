@@ -9,6 +9,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Entity class that represents table "matches" in database.
+ * @author Mustafa
+ * @version 1.0
+ */
 @Entity
 @Table(name = "matches")
 @AllArgsConstructor

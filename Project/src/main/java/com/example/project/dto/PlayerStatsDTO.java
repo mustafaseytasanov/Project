@@ -4,6 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Class PlayerStatsDTO
+ * @author Mustafa
+ * @version 1.0
+ */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

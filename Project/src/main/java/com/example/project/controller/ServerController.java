@@ -2,26 +2,28 @@ package com.example.project.controller;
 
 import com.example.project.dto.*;
 import com.example.project.model.Match;
-import com.example.project.model.Server;
-import com.example.project.repository.ServerRepository;
-import com.example.project.service.MatchService;
-import com.example.project.service.ServerService;
+import com.example.project.service.impl.MatchServiceImpl;
+import com.example.project.service.impl.ServerServiceImpl;
 import com.example.project.exception.ServerNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
+/**
+ * Class for handling requests where path is "/servers/...".
+ * @author Mustafa
+ * @version 1.0
+ */
 @RestController
 @RequestMapping("/servers")
 @AllArgsConstructor
 public class ServerController {
 
-    private final ServerService serverService;
-    private final MatchService matchService;
+    private final ServerServiceImpl serverService;
+    private final MatchServiceImpl matchService;
 
     @PutMapping("/{endpoint}/info")
     public ResponseEntity<Void> putInfo(@PathVariable String endpoint,

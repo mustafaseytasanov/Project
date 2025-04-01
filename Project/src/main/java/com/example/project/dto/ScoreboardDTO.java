@@ -2,6 +2,13 @@ package com.example.project.dto;
 
 import lombok.*;
 
+
+/**
+ * Class ScoreboardDTO
+ * @author Mustafa
+ * @version 1.0
+ */
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

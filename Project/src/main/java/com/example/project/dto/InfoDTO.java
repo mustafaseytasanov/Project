@@ -7,6 +7,11 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Class InfoDTO
+ * @author Mustafa
+ * @version 1.0
+ */
 @Getter
 @Setter
 @AllArgsConstructor

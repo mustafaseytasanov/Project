@@ -27,6 +27,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
+/**
+ * Class that implements integration testing.
+ * @author Mustafa
+ * @version 1.0
+ */
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -123,9 +128,25 @@ class ProjectApplicationTests {
                 .andDo(print());
     }
 
-    // Done
+    // Add match
     @Test
     @Order(3)
+    public void addMatchShouldReturnBadRequest() throws Exception {
+
+        // Action and Verify
+        String endpoint = "8.21.26.88-1337", timestamp = "2017-01-22T15:17:08Z";
+        mockMvc.perform(put(String.format("/servers/%s/matches/%s", endpoint, timestamp))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(matchDTO)))
+                .andExpect(status().isBadRequest())
+                .andDo(print());
+    }
+
+
+
+
+    @Test
+    @Order(4)
     public void getOneServerInfoShouldReturnOkAndInfoDTO() throws Exception {
 
         infoDTO.setGameModes(List.of("M1", "M2", "M3"));
@@ -142,7 +163,7 @@ class ProjectApplicationTests {
 
 
     @Test
-    @Order(4)
+    @Order(5)
     public void getAllServersInfoShouldReturnOk() throws Exception {
 
         // Precondition
@@ -155,7 +176,7 @@ class ProjectApplicationTests {
     }
 
     @Test
-    @Order(5)
+    @Order(6)
     public void getMatchShouldReturnOkAndMatchDTO() throws Exception {
 
         // Action and Verify
@@ -175,7 +196,7 @@ class ProjectApplicationTests {
 
 
     @Test
-    @Order(6)
+    @Order(7)
     public void getStatsShouldReturnOkAndStatsDTO() throws Exception {
 
         // Action and Verify
@@ -196,7 +217,7 @@ class ProjectApplicationTests {
     // Testing methods where path request begins from "/players".
 
     @Test
-    @Order(7)
+    @Order(8)
     public void getPlayerStatsShouldReturnOkAndPlayerStatsDTO() throws Exception {
 
         String name = "PLayer1";
@@ -219,7 +240,7 @@ class ProjectApplicationTests {
     // Testing methods where path request begins from "/reports".
     
     @Test
-    @Order(8)
+    @Order(9)
     public void getRecentMatchesWhereCountIsGreaterThanZeroShouldReturnOk() throws Exception {
 
         // Action and Verify
@@ -232,7 +253,7 @@ class ProjectApplicationTests {
     }
 
     @Test
-    @Order(9)
+    @Order(10)
     public void getRecentMatchesWhereCountIsLessOrEqualZeroShouldReturnOk() throws Exception {
 
         // Action and Verify
@@ -245,7 +266,7 @@ class ProjectApplicationTests {
 
 
     @Test
-    @Order(10)
+    @Order(11)
     public void getBestPlayersShouldReturnOkAndEmptyList() throws Exception {
         // Action and Verify
         int count = 4;
@@ -256,7 +277,7 @@ class ProjectApplicationTests {
     }
 
     @Test
-    @Order(11)
+    @Order(12)
     public void getPopularServersShouldReturnOkAndSizePopularServerDTOList() throws Exception {
         // Action and Verify
         int count = 4;

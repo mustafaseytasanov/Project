@@ -4,6 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Class PopularServerDTO
+ * @author Mustafa
+ * @version 1.0
+ */
 @AllArgsConstructor
 @Getter
 @Setter

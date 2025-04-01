@@ -7,7 +7,13 @@ import org.springframework.data.repository.CrudRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 
+/**
+ * Interface MatchRepository
+ * @author Mustafa
+ * @version 1.0
+ */
 public interface MatchRepository extends CrudRepository<Match, Long> {
+
     Match findByServerEndpointAndTimeStamp(String server_endpoint, LocalDateTime timeStamp);
 
     List<Match> findAllByServerEndpoint(String serverEndpoint);

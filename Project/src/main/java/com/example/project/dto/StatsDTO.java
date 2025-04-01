@@ -7,6 +7,12 @@ import lombok.Setter;
 
 import java.util.List;
 
+/**
+ * Class StatsDTO
+ * @author Mustafa
+ * @version 1.0
+ */
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
