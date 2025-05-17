@@ -1,4 +1,4 @@
-package com.example.project;
+package com.example.project.integration;
 
 import com.example.project.dto.InfoDTO;
 import com.example.project.dto.MatchDTO;
