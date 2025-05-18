@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface MatchRepository extends CrudRepository<Match, Long> {
 
-    Match findByServerEndpointAndTimeStamp(String server_endpoint, LocalDateTime timeStamp);
+    Match findByServerEndpointAndTimeStamp(String serverEndpoint, LocalDateTime timeStamp);
 
     List<Match> findAllByServerEndpoint(String serverEndpoint);
 

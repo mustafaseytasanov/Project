@@ -37,7 +37,7 @@ public class ServerRepositoryUnitTest {
     }
 
     @Test
-    public void whenFindByEndpoint_thenReturnServer() {
+    public void whenFindByEndpointThenReturnServer() {
         String endpoint = "167.2.0.32-1937";
         String name = "testServer";
         Optional<Server> server = serverRepository.findByEndpoint(endpoint);
@@ -47,7 +47,7 @@ public class ServerRepositoryUnitTest {
     }
 
     @Test
-    public void whenNotFindByEndpoint_thenReturnNull() {
+    public void whenNotFindByEndpointThenReturnNull() {
         String endpoint = "167.2.0.32-2010";
         Optional<Server> server = serverRepository.findByEndpoint(endpoint);
         // Verifying
