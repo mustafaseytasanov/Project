@@ -16,7 +16,7 @@ public interface ServerService {
     void saveOrUpdateInfo(String endpoint, InfoDTO infoDTO);
     InfoDTO getOneServerInfo(String endpoint);
     List<ServerDTO> getAllServersInfo();
-    boolean isExistsServer(String endpoint);
+    boolean isEmptyServer(String endpoint);
     StatsDTO getStats(String endpoint);
     List<PopularServerDTO> getPopularServers(int popularServersCount);
 

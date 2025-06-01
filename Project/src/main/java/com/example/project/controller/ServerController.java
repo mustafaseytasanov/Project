@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Class for handling requests where path is "/servers/...".
  * @author Mustafa
- * @version 1.0
+ * @version 1.1
  */
 @RestController
 @RequestMapping("/servers")
@@ -65,7 +65,7 @@ public class ServerController {
             @PathVariable String endpoint,
             @PathVariable String timestamp) {
 
-        if (serverService.isExistsServer(endpoint)) {
+        if (serverService.isEmptyServer(endpoint)) {
             return ResponseEntity.notFound().build();
         }
 
@@ -95,7 +95,7 @@ public class ServerController {
 
     @GetMapping("/{endpoint}/stats")
     public ResponseEntity<StatsDTO> getStats(@PathVariable String endpoint) {
-        if (serverService.isExistsServer(endpoint)) {
+        if (serverService.isEmptyServer(endpoint)) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(serverService.getStats(endpoint));

@@ -54,7 +54,7 @@ public class ServerServiceImpl implements ServerService {
         return serverDTOList;
     }
 
-    public boolean isExistsServer(String endpoint) {
+    public boolean isEmptyServer(String endpoint) {
         return serverRepository.findByEndpoint(endpoint).isEmpty();
     }
 
