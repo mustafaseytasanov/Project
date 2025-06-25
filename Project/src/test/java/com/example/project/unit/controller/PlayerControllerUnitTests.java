@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Class for unit testing of PlayerController.
  * @author Mustafa
- * @version 1.0
+ * @version 1.1
  */
 @WebMvcTest(PlayerController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -38,7 +38,7 @@ public class PlayerControllerUnitTests {
     @MockitoBean
     private PlayerServiceImpl playerService;
 
-    PlayerStatsDTO playerStatsDTO;
+    private PlayerStatsDTO playerStatsDTO;
 
     @BeforeEach
     public void setup() {

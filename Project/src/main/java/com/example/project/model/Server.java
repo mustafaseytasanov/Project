@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Entity class that represents table "servers" in database.
  * @author Mustafa
- * @version 1.0
+ * @version 1.1
  */
 @Entity
 @Table(name = "servers")
@@ -35,5 +35,11 @@ public class Server {
 
     public Server(String endpoint) {
         this.endpoint = endpoint;
+    }
+
+    public Server(String endpoint, String name,  List<String> gameModes) {
+        this.endpoint = endpoint;
+        this.name = name;
+        this.gameModes = gameModes;
     }
 }

@@ -37,7 +37,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Class for unit testing of ServerController.
  * @author Mustafa
- * @version 1.0
+ * @version 1.1
  */
 @WebMvcTest(ServerController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -56,12 +56,12 @@ public class ServerControllerUnitTests {
     @Autowired
     private ObjectMapper objectMapper;
 
-    Server server = new Server();
-    InfoDTO infoDTO = new InfoDTO();
-    String endpoint, timestamp;
-    MatchDTO matchDTO;
-    List<ServerDTO> serverDTOList = new ArrayList<>();
-    Match match;
+    private Server server = new Server();
+    private InfoDTO infoDTO = new InfoDTO();
+    private String endpoint, timestamp;
+    private MatchDTO matchDTO;
+    private List<ServerDTO> serverDTOList = new ArrayList<>();
+    private Match match;
 
     @BeforeEach
     public void setup() {

@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 /**
  * Class that implements integration testing.
  * @author Mustafa
- * @version 1.0
+ * @version 1.1
  */
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -47,10 +47,10 @@ class ProjectApplicationTests {
     @Autowired
     private ObjectMapper objectMapper;
 
-    Server server = new Server();
-    InfoDTO infoDTO;
-    String endpoint;
-    MatchDTO matchDTO;
+    private Server server = new Server();
+    private InfoDTO infoDTO;
+    private String endpoint;
+    private MatchDTO matchDTO;
 
     @Container
     static PostgreSQLContainer postgreSQLContainer = new PostgreSQLContainer("postgres:latest");
