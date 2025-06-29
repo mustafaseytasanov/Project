@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 /**
- * Entity class that represents table "scoreboards" in database.
+ * Entity class that represents "scoreboards" table in database.
  * @author Mustafa
  * @version 1.0
  */
@@ -15,6 +15,8 @@ import lombok.*;
 @Data
 @ToString
 @EqualsAndHashCode
+@Getter
+@Setter
 public class Scoreboard {
 
     @Id
@@ -33,43 +35,4 @@ public class Scoreboard {
     @Column(nullable = false)
     private int deaths;
 
-    public void setMatch(Match match) {
-        this.match = match;
-    }
-
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
-    }
-
-    public void setFrags(int frags) {
-        this.frags = frags;
-    }
-
-    public void setKills(int kills) {
-        this.kills = kills;
-    }
-
-    public void setDeaths(int deaths) {
-        this.deaths = deaths;
-    }
-
-    public String getPlayerName() {
-        return playerName;
-    }
-
-    public int getFrags() {
-        return frags;
-    }
-
-    public int getKills() {
-        return kills;
-    }
-
-    public int getDeaths() {
-        return deaths;
-    }
-
-    public Match getMatch() {
-        return match;
-    }
 }

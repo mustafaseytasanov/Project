@@ -18,8 +18,10 @@ import java.util.List;
 @Table(name = "matches")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-@EqualsAndHashCode
+//@Data
+@Getter
+@Setter
+//@EqualsAndHashCode
 public class Match {
 
     @Id

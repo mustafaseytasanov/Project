@@ -16,7 +16,7 @@ import java.util.*;
 /**
  * Implementation of PlayerService interface
  * @author Mustafa
- * @version 1.0
+ * @version 1.1
  */
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -86,7 +86,7 @@ public class PlayerServiceImpl implements PlayerService {
             }
             totalScoreboards += (double) playersBelowCurrent / (scoreboardList.size() - 1) * 100.0;
         }
-        double averageScoreboardPercent = totalScoreboards / playerScoreboards.size() * 100;
+        double averageScoreboardPercent = totalScoreboards / playerScoreboards.size();
 
         Map<LocalDate, Long> matchesPerDay = new HashMap<>();
         for (Scoreboard scoreboard: playerScoreboards) {
@@ -113,7 +113,8 @@ public class PlayerServiceImpl implements PlayerService {
         if (deaths == 0) {
             deaths = 1;
         }
-        double killToDeathRatio = (double) kills / (double) deaths;
+
+        double killToDeathRatio = (double) Math.round(1000 * (double) kills / (double) deaths) / 1000;
         return new PlayerStatsDTO(
                 totalMatchesPlayed,
                 totalMatchesWon,
