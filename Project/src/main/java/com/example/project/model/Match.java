@@ -12,16 +12,14 @@ import java.util.List;
 /**
  * Entity class that represents table "matches" in database.
  * @author Mustafa
- * @version 1.0
+ * @version 1.1
  */
 @Entity
 @Table(name = "matches")
 @AllArgsConstructor
 @NoArgsConstructor
-//@Data
 @Getter
 @Setter
-//@EqualsAndHashCode
 public class Match {
 
     @Id
@@ -44,4 +42,16 @@ public class Match {
     private double timeElapsed;
     @OneToMany(mappedBy = "match", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Scoreboard> scoreboardList = new ArrayList<>();
+
+    public Match(Long id, LocalDateTime timeStamp, Server server, String map, String gameMode, int fragLimit,
+                 int timeLimit, double timeElapsed) {
+        this.id = id;
+        this.timeStamp = timeStamp;
+        this.server = server;
+        this.map = map;
+        this.gameMode = gameMode;
+        this.fragLimit = fragLimit;
+        this.timeLimit = timeLimit;
+        this.timeElapsed = timeElapsed;
+    }
 }
