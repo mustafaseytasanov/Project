@@ -6,24 +6,24 @@ import com.example.project.dto.ReportDTO;
 import com.example.project.service.impl.MatchServiceImpl;
 import com.example.project.service.impl.PlayerServiceImpl;
 import com.example.project.service.impl.ServerServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 
 /**
  * Class for handling requests where path is "/reports/...".
  * @author Mustafa
- * @version 1.0
+ * @version 1.1
  */
-@Controller
+@Tag(name = "Reports", description = "Reports about matches, players and servers")
+@RestController
 @AllArgsConstructor
 @RequestMapping("/reports")
 public class ReportController {
@@ -32,40 +32,55 @@ public class ReportController {
     private final PlayerServiceImpl playerService;
     private final ServerServiceImpl serverService;
 
-    @GetMapping("/recent-matches/{count}")
-    public ResponseEntity<List<ReportDTO>> getRecentMatches(@PathVariable(required = false) Optional<Integer> count) {
-        int recentMatchesCount = getIntegerValue(count);
-        if (recentMatchesCount <= 0) {
+    @Operation(
+            summary = "Getting reports about recent matches",
+            description = "It allows to get reports about recent matches " +
+                    "in descending order: first, matches with the largest timestamp."
+    )
+    @GetMapping("/recent-matches")
+    public ResponseEntity<List<ReportDTO>> getRecentMatches(
+            @RequestParam(name = "count", required = false, defaultValue = "5")
+            @Parameter(description = "The number of records to include in the report",
+                    example = "5") int count) {
+        count = Math.min(count, 50);
+        if (count <= 0) {
             return ResponseEntity.ok(Collections.emptyList());
         }
-        return ResponseEntity.ok(matchService.getRecentMatches(recentMatchesCount));
+        return ResponseEntity.ok(matchService.getRecentMatches(count));
     }
 
-    @GetMapping("/best-players/{count}")
-    public ResponseEntity<List<BestPlayerDTO>> getBestPlayers(@PathVariable(required = false) Optional<Integer> count) {
-        int bestPlayersCount = getIntegerValue(count);
-        if (bestPlayersCount <= 0) {
+    @Operation(
+            summary = "Getting reports about best players",
+            description = "It allows to get reports about best players " +
+                    "in descending order of 'killToDeathRatio' parameter."
+    )
+    @GetMapping("/best-players")
+    public ResponseEntity<List<BestPlayerDTO>> getBestPlayers(
+            @RequestParam(name = "count", required = false, defaultValue = "5")
+            @Parameter(description = "The number of records to include in the report",
+                    example = "5") int count) {
+        count = Math.min(count, 50);
+        if (count <= 0) {
             return ResponseEntity.ok(Collections.emptyList());
         }
-        return ResponseEntity.ok(playerService.getBestPlayers(bestPlayersCount));
+        return ResponseEntity.ok(playerService.getBestPlayers(count));
     }
 
-    @GetMapping("/popular-servers/{count}")
+    @Operation(
+            summary = "Getting reports about popular servers",
+            description = "It allows to get reports about popular servers " +
+                    "in descending order of 'averageMatchesPerDay' parameter."
+    )
+    @GetMapping("/popular-servers")
     public ResponseEntity<List<PopularServerDTO>> getPopularServers(
-            @PathVariable(required = false) Optional<Integer> count) {
-        int popularServersCount = getIntegerValue(count);
-        if (popularServersCount <= 0) {
+            @RequestParam(name = "count", required = false, defaultValue = "5")
+            @Parameter(description = "The number of records to include in the report",
+                    example = "5") int count) {
+        count = Math.min(count, 50);
+        if (count <= 0) {
             return ResponseEntity.ok(Collections.emptyList());
         }
-        return ResponseEntity.ok(serverService.getPopularServers(popularServersCount));
-    }
-
-    private int getIntegerValue(Optional<Integer> count) {
-        int intValueCount = count.orElse(5);
-        if (intValueCount >= 50) {
-            intValueCount = 50;
-        }
-        return intValueCount;
+        return ResponseEntity.ok(serverService.getPopularServers(count));
     }
 
 }
