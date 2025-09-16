@@ -39,7 +39,7 @@ public class ReportController {
     )
     @GetMapping("/recent-matches")
     public ResponseEntity<List<ReportDTO>> getRecentMatches(
-            @RequestParam(name = "count", required = false, defaultValue = "5")
+            @RequestParam(value = "count", required = false, defaultValue = "5")
             @Parameter(description = "The number of records to include in the report",
                     example = "5") int count) {
         count = Math.min(count, 50);
@@ -56,7 +56,7 @@ public class ReportController {
     )
     @GetMapping("/best-players")
     public ResponseEntity<List<BestPlayerDTO>> getBestPlayers(
-            @RequestParam(name = "count", required = false, defaultValue = "5")
+            @RequestParam(value = "count", required = false, defaultValue = "5")
             @Parameter(description = "The number of records to include in the report",
                     example = "5") int count) {
         count = Math.min(count, 50);
@@ -73,7 +73,7 @@ public class ReportController {
     )
     @GetMapping("/popular-servers")
     public ResponseEntity<List<PopularServerDTO>> getPopularServers(
-            @RequestParam(name = "count", required = false, defaultValue = "5")
+            @RequestParam(value = "count", required = false, defaultValue = "5")
             @Parameter(description = "The number of records to include in the report",
                     example = "5") int count) {
         count = Math.min(count, 50);

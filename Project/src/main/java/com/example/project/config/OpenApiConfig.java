@@ -4,6 +4,11 @@ import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.info.Contact;
 import io.swagger.v3.oas.annotations.info.Info;
 
+/**
+ * Class OpenApiConfig.
+ * @author Mustafa
+ * @version 1.0
+ */
 @OpenAPIDefinition(
         info = @Info(
                 title = "Application",

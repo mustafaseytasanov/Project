@@ -9,6 +9,9 @@ import com.example.project.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -28,7 +31,8 @@ public class PlayerServiceImpl implements PlayerService {
         this.scoreboardRepository = scoreboardRepository;
     }
 
-    public PlayerStatsDTO getPlayerStats(String name) {
+    public PlayerStatsDTO getPlayerStats(String name) throws UnsupportedEncodingException {
+        name = URLDecoder.decode(name, StandardCharsets.UTF_8); // Decoding the encoding name
         name = name.toLowerCase();
         List<Scoreboard> playerScoreboards = scoreboardRepository.findByPlayerNameIgnoreCase(name);
         if (playerScoreboards.isEmpty()) {
@@ -84,9 +88,9 @@ public class PlayerServiceImpl implements PlayerService {
                     break;
                 }
             }
-            totalScoreboards += (double) playersBelowCurrent / (scoreboardList.size() - 1) * 100.0;
+            totalScoreboards += (double) playersBelowCurrent / (scoreboardList.size() - 1);
         }
-        double averageScoreboardPercent = totalScoreboards / playerScoreboards.size();
+        double averageScoreboardPercent = totalScoreboards / playerScoreboards.size() * 100;
 
         Map<LocalDate, Long> matchesPerDay = new HashMap<>();
         for (Scoreboard scoreboard: playerScoreboards) {

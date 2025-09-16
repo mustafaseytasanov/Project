@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Class for handling requests where path is "/players/...".
  * @author Mustafa
@@ -34,7 +36,8 @@ public class PlayerController {
     )
     @GetMapping("/{name}/stats")
     public ResponseEntity<PlayerStatsDTO> getPlayerStats(
-            @PathVariable @Parameter(description = "Name of player", required = true, example = "Player 1") String name) {
+            @PathVariable @Parameter(description = "Urlencoded name of player", required = true,
+                    example = "Player%201") String name) throws UnsupportedEncodingException {
         PlayerStatsDTO playerStatsDTO = playerService.getPlayerStats(name);
         return new ResponseEntity<>(playerStatsDTO, HttpStatus.OK);
     }

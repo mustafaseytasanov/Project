@@ -11,7 +11,7 @@ import lombok.Setter;
  * @author Mustafa
  * @version 1.0
  */
-@Schema(description = " DTO for Best Player")
+@Schema(description = "DTO for Best Player")
 @Getter
 @Setter
 @AllArgsConstructor

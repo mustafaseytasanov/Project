@@ -63,7 +63,7 @@ public class ReportControllerUnitTests {
         int count = 0;
 
         // Action
-        ResultActions response = mockMvc.perform(get("/reports/recent-matches/{count}", count));
+        ResultActions response = mockMvc.perform(get("/reports/recent-matches?count=" + count));
 
         // Verifying
         response.andExpect(status().isOk())
@@ -81,7 +81,7 @@ public class ReportControllerUnitTests {
                 .willReturn(reportDTOList);
 
         // Action
-        ResultActions response = mockMvc.perform(get("/reports/recent-matches/{count}", count));
+        ResultActions response = mockMvc.perform(get("/reports/recent-matches?count=" + count));
 
         // Verifying
         response.andExpect(status().isOk())
@@ -96,7 +96,7 @@ public class ReportControllerUnitTests {
         int count = 0;
 
         // Action
-        ResultActions response = mockMvc.perform(get("/reports/best-players/{count}", count));
+        ResultActions response = mockMvc.perform(get("/reports/best-players?count=" + count));
 
         // Verifying
         response.andExpect(status().isOk())
@@ -117,7 +117,7 @@ public class ReportControllerUnitTests {
                 .willReturn(bestPlayerDTOList);
 
         // Action
-        ResultActions response = mockMvc.perform(get("/reports/best-players/{count}", count));
+        ResultActions response = mockMvc.perform(get("/reports/best-players?count=" + count));
 
         // Verifying
         response.andExpect(status().isOk())
@@ -131,7 +131,7 @@ public class ReportControllerUnitTests {
         int count = 0;
 
         // Action
-        ResultActions response = mockMvc.perform(get("/reports/popular-servers/{count}", count));
+        ResultActions response = mockMvc.perform(get("/reports/popular-servers?count=" + count));
 
         // Verifying
         response.andExpect(status().isOk())
@@ -153,7 +153,7 @@ public class ReportControllerUnitTests {
                 .willReturn(popularServerDTOList);
 
         // Action
-        ResultActions response = mockMvc.perform(get("/reports/popular-servers/{count}", count));
+        ResultActions response = mockMvc.perform(get("/reports/popular-servers?count=" + count));
 
         // Verifying
         response.andExpect(status().isOk())

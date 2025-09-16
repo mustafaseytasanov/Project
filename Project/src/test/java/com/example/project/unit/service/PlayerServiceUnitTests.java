@@ -17,6 +17,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -87,7 +88,7 @@ public class PlayerServiceUnitTests {
 
     // Testing getPlayerStats(String name) method.
     @Test
-    public void getPlayerStatsTestShouldReturnPlayerStatsDTO() {
+    public void getPlayerStatsTestShouldReturnPlayerStatsDTO() throws UnsupportedEncodingException {
         // Precondition
         String name = "player 1";
         when(scoreboardRepository.findByPlayerNameIgnoreCase(name))

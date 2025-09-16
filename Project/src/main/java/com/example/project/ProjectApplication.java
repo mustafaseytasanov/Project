@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
  * @version 1.0
  */
 @SpringBootApplication
-//@ComponentScan(basePackages = "com.example.project.repository")
 public class ProjectApplication {
 
     public static void main(String[] args) {

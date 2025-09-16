@@ -245,8 +245,7 @@ class ProjectApplicationTests {
 
         // Action and Verify
         int count = 4;
-        mockMvc.perform(get(String.format("/reports/recent-matches/%d",
-                        count)))
+        mockMvc.perform(get(String.format("/reports/recent-matches?count=" + count)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.size()", is(1)));
@@ -258,7 +257,7 @@ class ProjectApplicationTests {
 
         // Action and Verify
         int count = -1;
-        mockMvc.perform(get(String.format("/reports/recent-matches/%d", count)))
+        mockMvc.perform(get(String.format("/reports/recent-matches?count=" + count)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().json("[]"));
@@ -270,7 +269,7 @@ class ProjectApplicationTests {
     public void getBestPlayersShouldReturnOkAndEmptyList() throws Exception {
         // Action and Verify
         int count = 4;
-        mockMvc.perform(get(String.format("/reports/best-players/%d", count)))
+        mockMvc.perform(get(String.format("/reports/best-players?count=" + count)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().json("[]"));
@@ -281,7 +280,7 @@ class ProjectApplicationTests {
     public void getPopularServersShouldReturnOkAndSizePopularServerDTOList() throws Exception {
         // Action and Verify
         int count = 4;
-        mockMvc.perform(get(String.format("/reports/popular-servers/%d", count)))
+        mockMvc.perform(get(String.format("/reports/popular-servers?count=" + count)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(jsonPath("$.size()", is(1)));
