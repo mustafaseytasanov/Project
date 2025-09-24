@@ -1,0 +1,27 @@
+volumes:
+  pg_stats:
+
+services:
+  stats_db:
+    image: postgres
+    restart: always
+    environment:
+      - 'POSTGRES_DB=postgres'
+      - 'POSTGRES_PASSWORD=postgres'
+      - 'POSTGRES_USER=postgres'
+    volumes:
+      - pg_stats:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  app:
+    restart: always
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - stats_db
+    environment:
+      SPRING_DATASOURCE_URL: 'jdbc:postgresql://stats_db:5432/postgres'
+      JAVA_OPTS: '-Xmx512m'
+
+
